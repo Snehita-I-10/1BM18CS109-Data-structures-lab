@@ -1,0 +1,75 @@
+#include <stdio.h>
+#include<stdlib.h>
+#include<conio.h>
+
+void push(int a,int s[5],int *t);
+
+int pop(int s[5],int *t);
+int top(int s[5],int *t);
+int notempty(int s[5],int *t);
+void display(int s[5],int t);
+int main()
+{   int stack1[5],stack2[5],top1=-1,top2=-1,x,y,i,a;
+    printf("enter elements");
+    for(i=0;i<5;i++)
+    {
+        scanf("%d",&a);
+        push(a,stack1,&top1);
+        
+    }
+    x=pop(stack1,&top1);
+    push(x,stack2,&top2);
+    while(notempty(stack1,&top1))
+    {
+        x=pop(stack1,&top1);
+        if(x>top(stack2,&top2))
+        {
+            push(x,stack2,&top2);
+        }
+        else
+        {
+        while(x<=top(stack2,&top2) && (notempty(stack2,&top2)))
+        {
+            y=pop(stack2,&top2);
+            push(y,stack1,&top1);
+        }
+        push(x,stack2,&top2);
+        }
+        
+        
+    }
+    display(stack2,top2);
+    getch();
+    return 0;
+}
+int notempty(int s[5],int *t)
+{
+    if(*t==-1)
+    
+    return 0;
+    else
+    
+    return 1;
+}
+void push(int a,int s[5],int *t)
+{
+    *t=*t+1;
+    s[*t]=a;
+}
+int pop(int s[5],int *t)
+{
+    int b=s[*t];
+    *t=*t-1;
+    return b;
+}
+int top(int s[5],int *t)
+{
+    return s[*t];
+}
+void display(int s[5],int t)
+{
+    for(int i=t;i>=0;i--)
+    {
+        printf("%d\n",s[i]);
+    }
+}
